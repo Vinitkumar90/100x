@@ -21,8 +21,8 @@ function Card() {
           <button className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition-all duration-300">
             Die Now
           </button>
-          <button className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition-all duration-300">
-            Die Now
+          <button className="bg-white text-black px-4 py-2 rounded-lg hover:bg-amber-50 transition-all duration-300">
+            Die Later
           </button>
         </div>
       </div>
