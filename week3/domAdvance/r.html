@@ -1,0 +1,93 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" placeholder="enter your todo...">
+    <button onclick="addTodo()">Add</button>
+    <button onclick="delfirst()">delete first</button>
+    <button onclick="dellast()">delete last</button>
+
+    <div class="list"></div>
+
+    <script>
+
+        //this will be our state
+        const todos  = [];
+
+
+        function addTodo(){
+            todos.push({
+                title:document.querySelector("input").value
+            })
+
+            render();
+        }
+
+        function delfirst(){
+            todos.pop();
+            render();
+        }
+
+        function dellast(){
+            todos.splice(todos.length - 1, 1)
+            render();
+        }
+
+        //just updates the todos array and call render ...no dom manipulatio...render fn will do it here
+        function deleteTodo(index){
+            todos.splice(index,1);
+            render()
+        }
+
+        function updateTood(input,upd){
+            if(upd.textContent =="update"){
+                upd.textContent = "save"
+                input.readOnly = false;
+                input.focus();
+            }else{
+                upd.textContent = "update";
+                input.readOnly = true;
+                
+            }
+        }
+
+
+        //state changes render willl update the dom
+
+        //bunch of optimisation : batch updates...bunch of render ..it will batch the changes
+        //  and then put it on the dom
+        function render(){
+            let list= document.querySelector(".list");
+            list.textContent = "";
+
+            todos.map((todo,index) => {
+                let newDiv = document.createElement("div");
+                let input = document.createElement("input");
+                input.value = todo.title;
+                input.readOnly = false;
+                let del = document.createElement("button");
+                del.innerText = "delete";
+                del.onclick = function(){deleteTodo(index)}
+                let upd = document.createElement("button");
+                upd.textContent = "update";
+                upd.onclick = function(){updateTood(input,upd)}
+                newDiv.appendChild(input);
+                newDiv.appendChild(del);
+                newDiv.appendChild(upd)
+
+                list.appendChild(newDiv);
+                document.querySelector("input").value  = "";
+
+            })
+        }
+
+        //reconcilliation : process of finding diff between a new state and old state 
+
+
+
+    </script>
+</body>
+</html>

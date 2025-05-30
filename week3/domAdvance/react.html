@@ -1,0 +1,53 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>react-foundation</title>
+  </head>
+  <body>
+    <input type="text" />
+    <button onclick="addTodo()">Add Todo</button>
+
+    <div class="my-list"></div>
+
+    <script>
+      let todos = [];
+
+      //state derived frontends...todos
+    //   setInterval(() => {
+    //     todos.push({
+    //         title: Math.random()
+    //     })
+    //     render()
+    //   }, 5000);
+
+      function addTodo() {
+        todos.push({
+          title: document.querySelector("input").value,
+        });
+        render();
+      }
+
+      function render() {
+        let list = document.querySelector(".my-list");
+        list.innerHTML = "";
+
+        todos.map((todo,index) => {
+          let newDiv = document.createElement("div");
+          newDiv.textContent = todo.title;
+          let delbtn = document.createElement("button");
+          delbtn.textContent = "delete";
+          delbtn.onclick = function(){deletTodo(index)}
+          newDiv.appendChild(delbtn)
+          list.appendChild(newDiv);
+        });
+      }
+
+      function deletTodo(index){
+        todos.splice(index,1)
+        render();
+      }
+
+    </script>
+  </body>
+</html>
